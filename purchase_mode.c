@@ -426,17 +426,18 @@ int purchase_mode() {
             } 
             else if (answer == 'n' || answer == 'N') {
               printf("Thanks to stay with us 👍\n");
-            continue;}
+              exit(EXIT_SUCCESS);
+            }
            else {
              printf ("Invalide Choice");
-             
+             exit(EXIT_FAILURE);
            }
         case 5:
       printf("\nGoodbye! See you soon! 👋 \n");
       break;
     default:
       printf("\nInvalid choice. Please try again.\n");
-
+      exit(EXIT_FAILURE);
     } 
  } while (choice != 5);
 
