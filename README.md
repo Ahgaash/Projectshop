@@ -28,3 +28,5 @@ A menu is then displayed, and the user can choose between different services:
 -If the user chooses not to validate, the purchase will be deleted, and if they validate, the purchase will be recorded in their personal history. If the product they are looking for is no longer in stock, the user will be asked to choose whether or not they wish to unsubscribe from the store;
 -The fourth allows the user to unsubscribe from the store;
 -The fifth is simply to exit the program.
+
+Unresolved bug: when the user does anything on one of the functions available on the 2 modes, and then repeats this action on the menu, the menu buffer will not work and will display the previously selected function.
