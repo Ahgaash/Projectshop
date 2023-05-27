@@ -110,14 +110,14 @@ void add_product(Product products[], int *num_products) {
   printf("Enter the quantity of the product: ");
   scanf("%d", &products[*num_products].quantity);
   empty_buffer();
-  printf("Enter the product size (small/medium/big): ");
+  printf("Enter the product size (little/mean/big): ");
   char size[10];
   scanf("%s", size);
   int quantity_factor;
   // Détermine le facteur de quantité en fonction de la taille du produit
-  if (strcmp(size, "small") == 0) {
+  if (strcmp(size, "little") == 0) {
     quantity_factor = 1;
-  } else if (strcmp(size, "medium") == 0) {
+  } else if (strcmp(size, "mean") == 0) {
     quantity_factor = 2;
   } else if (strcmp(size, "big") == 0) {
     quantity_factor = 4;
@@ -221,13 +221,13 @@ void add_quantity(Product products[], int num_products) {
       printf("Enter the quantity to add or remove for the product %s: ", products[i].name);
       scanf("%d", &quantity);// Lit la quantité à ajouter ou à supprimer
       empty_buffer();
-      printf("Enter the size of the product %s : ", products[i].name);
+      printf("Enter the size of the product %s: ", products[i].name);
       char size[10];
       scanf("%s", size); // Lit la taille du produit
       // Associe un facteur à la taille du produit pour ajuster la quantité
-      if (strcmp(size, "small") == 0) {
+      if (strcmp(size, "little") == 0) {
         size_factor = 1;
-      } else if (strcmp(size, "medium") == 0) {
+      } else if (strcmp(size, "mean") == 0) {
         size_factor = 2;
       } else if (strcmp(size, "big") == 0) {
         size_factor = 4;
@@ -339,7 +339,6 @@ int management_mode() {
     printf("Your Choice : ");
     scanf("%d", &choice);
     empty_buffer();
-    
     switch (choice) {
     case 1:
       print_products(products, num_products);
