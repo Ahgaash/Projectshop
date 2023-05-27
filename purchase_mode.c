@@ -57,9 +57,9 @@ void add_customer(Customer customer[], int *nbr_customers, char last_name[], cha
     FILE *file = fopen(FI, "a");
     fprintf(file, "%s %s\n", last_name, first_name);
     fclose(file);
-    printf("Thanks and welcome %s %s !\n", last_name, first_name);
+    printf("\nThanks and welcome %s %s !\n", last_name, first_name);
   } else {
-    printf("Maximum number of customers reached\n");
+    printf("\nMaximum number of customers reached\n");
   }
 }
 
@@ -74,7 +74,7 @@ int find_client(Customer customer[], int nbr_customers, char last_name[], char f
 }
 void search_product_customer(Product products[], int num_products) {
   char search_term[50];
-  printf("Enter the name of the product you are looking for : ");
+  printf("\nEnter the name of the product you are looking for : ");
   scanf("%s", search_term);
   int found=0;
   for (int i = 0; i < num_products; i++) {
@@ -90,9 +90,9 @@ void search_product_customer(Product products[], int num_products) {
   }
 }
 void displayProducts(Product products[], int numProducts) {
-    printf("Available products :\n");
+    printf("\nAvailable products :\n");
     for (int i = 0; i < numProducts; i++) {
-        printf("%s: prix (%.2f €)\n",products[i].name, products[i].price);
+        printf("%s: price (%.2f €)\n",products[i].name, products[i].price);
     }
 }
 void updateQuantityInFile(Product products[], int numProducts) {
@@ -135,7 +135,7 @@ void readLastThreePurchases(const char* last_name, const char* first_name) {
 
     FILE* file = fopen(fileName, "r");  // Ouverture du fichier en lecture
     if (file == NULL) {
-        printf("Error opening file %s.\n", fileName);
+        printf("You have no purchase history.\n");
         return;
     }
 
@@ -159,13 +159,6 @@ void readLastThreePurchases(const char* last_name, const char* first_name) {
     fclose(file);  // Fermeture du fichier
 }
 
-bool customerWantsToUnsubscribe() {
-    char answer;
-    printf("Would you like to unsubscribe (y/n) ? ");
-    scanf(" %c", &answer);
-
-    return (answer == 'y' || answer == 'Y');
-}
 
 void removeCustomerFromFile(Customer customer[], char last_name[], char first_name[]) {
     // Ouvrir le fichier en lecture
@@ -243,7 +236,7 @@ void fillShoppingCart(Customer customer[], char last_name[], char first_name[]) 
     fclose(file);  // Fermeture du fichier
 
     // Affichage des produits disponibles
-    printf("List of available products :\n");
+    printf("\nList of available products :\n");
     for (int i = 0; i < numProducts; i++) {
         printf("%d. %s  - Price ( %.2f EUR)\n", i + 1, products[i].name,  products[i].price);
     }
@@ -273,13 +266,23 @@ void fillShoppingCart(Customer customer[], char last_name[], char first_name[]) 
         // Vérification si le produit est en stock
         if (products[choice].quantity == 0) {
             printf("Sorry, we are out of stock for this product.\n");
-            if (customerWantsToUnsubscribe()) {
+            // if (customerWantsToUnsubscribe()) {
+                 char answer;
+                printf("Would you like to unsubscribe (y/n) 😞? ");
+                scanf(" %c", &answer);
+                if (answer == 'y' || answer == 'Y') {
                 removeCustomerFromFile(customer, last_name, first_name);
                 removePurchaseHistoryFile(last_name, first_name);
                 printf("You have been successfully unsubscribed.\n");
                 exit(EXIT_SUCCESS);
-            }
-            continue;
+            } 
+            else if (answer == 'n' || answer == 'N') {
+              printf("Merci de rester avec nous 👍");
+            continue;}
+           else {
+             printf ("Invalide choice");
+             continue;
+           }
         }
 
         printf("How many do you want : ");
@@ -338,7 +341,7 @@ void fillShoppingCart(Customer customer[], char last_name[], char first_name[]) 
     scanf(" %c", &confirmation);
 
     if (confirmation == 'y' || confirmation == 'Y') {
-        printf("Payment done. Thank you for your purchase!\n");
+        printf("Payment done. Thank you for your purchase! 😁\n");
         updateQuantityInFile(products, numProducts);  // Mise à jour de la quantité dans le fichier
         savePurchaseHistory(first_name, last_name, cart, cartQuantities, products, numCartItems);  // Sauvegarde de l'historique d'achat
     } else if (confirmation == 'n' || confirmation == 'N') {
@@ -374,11 +377,10 @@ int purchase_mode() {
   int cart[MAX_PRODUCTS];
   int cartSize = 0;
   int num_products= load_products_cust(products);
-
-
+   char answer;
   Read_customer(customer, &nbr_customers);
 
-  printf("Enter the customer's last name\n");
+  printf("\nEnter the customer's last name\n");
   scanf("%s", last_name);
 
   printf("Enter the customer's first name\n");
@@ -414,14 +416,23 @@ int purchase_mode() {
        fillShoppingCart(customer,last_name,first_name); 
       break; 
       case 4:
-       if (customerWantsToUnsubscribe()) {
-            removeCustomerFromFile(customer, last_name, first_name);
-            removePurchaseHistoryFile(last_name, first_name);
-            printf("You have been successfully unsubscribed.\n");
-            exit(EXIT_SUCCESS);
-        }
+                printf("Would you like to unsubscribe (y/n) 😞? ");
+                scanf(" %c", &answer);
+                if (answer == 'y' || answer == 'Y') {
+                removeCustomerFromFile(customer, last_name, first_name);
+                removePurchaseHistoryFile(last_name, first_name);
+                printf("You have been successfully unsubscribed.\n");
+                exit(EXIT_SUCCESS);
+            } 
+            else if (answer == 'n' || answer == 'N') {
+              printf("Thanks to stay with us 👍\n");
+            continue;}
+           else {
+             printf ("Invalide Choice");
+             
+           }
         case 5:
-      printf("\n Goodbye !\n");
+      printf("\nGoodbye! See you soon! 👋 \n");
       break;
     default:
       printf("\nInvalid choice. Please try again.\n");
