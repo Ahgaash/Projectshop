@@ -430,14 +430,12 @@ int purchase_mode() {
             }
            else {
              printf ("Invalide Choice");
-             exit(EXIT_FAILURE);
            }
         case 5:
       printf("\nGoodbye! See you soon! 👋 \n");
       break;
     default:
-      printf("\nInvalid choice. Please try again.\n");
-      exit(EXIT_FAILURE);
+      printf("\nInvalid choice. Please try again.\n");     
     } 
  } while (choice != 5);
 
