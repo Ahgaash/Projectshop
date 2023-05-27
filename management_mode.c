@@ -740,6 +740,7 @@ int management_mode() {
       break;
     default:
       printf("\nInvalid choice. Please try again.\n");
+      exit(EXIT_FAILURE);
     }
     } while (choice != 7);
 
